@@ -10,9 +10,11 @@
 void swap(listint_t *sort_l, listint_t *temp)
 {
 	sort_l->next = temp->next;
-	temp->next->prev = sort_l;
+	if (temp->next)
+		temp->next->prev = sort_l;
 	temp->prev = sort_l->prev;
-	sort_l->prev->next = temp;
+	if (sort_l->prev)
+		sort_l->prev->next = temp;
 	sort_l->prev = temp;
 	temp->next = sort_l;
 }
@@ -44,7 +46,7 @@ void insertion_sort_list(listint_t **list)
 		{
 			swap(sort_l, temp);
 			print_list(*list);
-			sort_l = sort_l->prev->prev;
+			sort_l = temp->prev;
 		}
 		h = h->next;
 	}
