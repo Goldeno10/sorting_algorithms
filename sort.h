@@ -29,5 +29,5 @@ void selection_sort(int *array, size_t size);
 void quick_sort(int *array, size_t size);
 void quicksort(int *array, size_t n,  size_t lb, size_t ub);
 size_t partition(int *array, size_t n,  size_t lb, size_t ub);
-
+void shell_sort(int *array, size_t size);
 #endif /* SORTH_H */
