@@ -69,6 +69,9 @@ void quick_sort(int *array, size_t size)
 {
 	size_t lb, ub;
 
+	if (!array || size < 2)
+		return;
+
 	lb = 0;
 	ub = size - 1;
 

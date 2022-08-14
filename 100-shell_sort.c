@@ -10,32 +10,31 @@
 
 void shell_sort(int *array, size_t size)
 {
-	size_t n = size;
-	size_t gap = 1, j, i;
+	int n = (int)size;
+	int gap = 1, j, i;
 	int temp;
 
-	while (gap <= n / 3)
-		gap = n * 3 + 1;
+	if (!array || size < 2)
+		return;
+	while (gap <= (int)size / 3)
+		gap = gap * 3 + 1;
 
-	while (gap > 0)
+	for (; gap >= 1; gap  = gap / 3)
 	{
-		for (j = gap; j < n; j++)
+		for (i = gap; i <= (int) size; i++)
 		{
-			for (i = j - gap; i >= 0; i -= gap)
+			for (j = i - gap; j >= 0; j -= gap)
 			{
-				if (array[i + gap] > array[1])
-				{
+				if (array[j + gap] > array[j])
 					break;
-				}
 				else
 				{
-					temp = array[i + gap];
-					array[i + gap] = array[i];
-					array[i] = temp;
+				temp = array[j];
+				array [j] = array[j + gap];
+				array[j + gap] = temp;
 				}
 			}
 		}
-		gap = (gap - 1) / 3;
 		print_array(array, n);
 	}
-}
+}	
