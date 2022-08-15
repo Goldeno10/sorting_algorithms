@@ -45,9 +45,11 @@ void insertion_sort_list(listint_t **list)
 
 	if (*list == NULL || list == NULL || (*list)->next == NULL)
 		return;
-	/* Navigate to the begining of list*/
-	while (h->prev)
+	/* 
+	 * Navigate to the begining of list*
+	*while (h->prev)
 		h = h->prev;
+		*/
 	/* traversing the linked list to the end */
 	for (h = h->next; h != NULL; h = h->next)
 	{
