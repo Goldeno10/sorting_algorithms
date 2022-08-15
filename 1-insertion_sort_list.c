@@ -43,13 +43,12 @@ void insertion_sort_list(listint_t **list)
 {
 	listint_t *temp, *sort_l, *h = *list;
 
-	if (*list == NULL || list == NULL || (*list)->next == NULL)
+	if (list == NULL || (*list) == NULL || **list == NULL)
 		return;
-	/* 
-	 * Navigate to the begining of list*
-	*while (h->prev)
+	/* Navigate to the begining of list */
+	while (h->prev)
 		h = h->prev;
-		*/
+
 	/* traversing the linked list to the end */
 	for (h = h->next; h != NULL; h = h->next)
 	{
