@@ -1,69 +1,64 @@
 #include "sort.h"
-#include <stdio.h>
-
 /**
- * swap - swaps a node with the next node in the list
- * @list: double pointer to the beginning of the list
- * @node: node to swap
- *
- * Return: void
+ * swapper - a function to help swap 2 nodes in a dlist
+ * @a: one node
+ * @b: the other node
  */
-void swap_list(listint_t **list, listint_t *node)
+void swapper(listint_t *a, listint_t *b)
 {
-	node->next->prev = node->prev;
-	if (node->prev)
-		node->prev->next = node->next;
-	else
-		*list = node->next;
-	node->prev = node->next;
-	node->next = node->next->next;
-	node->prev->next = node;
-	if (node->next)
-		node->next->prev = node;
+	if (a->prev)
+		a->prev->next = b;
+	if (b->next)
+		b->next->prev = a;
+	a->next = b->next;
+	b->prev = a->prev;
+	a->prev = b;
+	b->next = a;
 }
-
 /**
- * cocktail_sort_list - sorts a doubly linked list of integers in ascending
- * order using the Cocktail shaker sort algorithm
- * @list: Double pointer to the head of the doubly linked list
- *
- * Return: void
+ * cocktail_sort_list - sort list
+ * @list: the list to sort
  */
 void cocktail_sort_list(listint_t **list)
 {
-	char swapped = 1;
-	listint_t *temp;
+	/* declarations */
+	listint_t *l;
+	int needssort = 1;
 
-	if (list == NULL || *list == NULL)
+	if (!(list && *list))
 		return;
-	temp = *list;
-	while (swapped != 0)
+	l = *list;
+	while (needssort)
 	{
-		swapped = 0;
-		while (temp->next != NULL)
+		needssort = 0;
+		while (l && l->next)
 		{
-			if (temp->next->n < temp->n)
+			if (l->n > l->next->n)
 			{
-				swap_list(list, temp);
-				swapped = 1;
+				swapper(l, l->next);
+				if (l->prev->prev == NULL)
+					*list = l->prev;
 				print_list(*list);
+				needssort = 1;
 			}
 			else
-				temp = temp->next;
+				l = l->next;
 		}
-		if (swapped == 0)
+		if (!needssort)
 			break;
-		swapped = 0;
-		while (temp->prev != NULL)
+		needssort = 0;
+		while (l->prev)
 		{
-			if (temp->prev->n > temp->n)
+			if (l->prev->n > l->n)
 			{
-				swap_list(list, temp->prev);
-				swapped = 1;
+				swapper(l->prev, l);
+				if (l->prev == NULL)
+					*list = l;
 				print_list(*list);
+				needssort = 1;
 			}
 			else
-				temp = temp->prev;
+				l = l->prev;
 		}
 	}
 }
